@@ -31,6 +31,7 @@ jar {
     manifest {
         attributes ( 
         	'Class-Path': configurations.runtime.files.collect { it.name }.join(' ') ,
+        	'Main-Class': mainClassName
         )
     }
 }
