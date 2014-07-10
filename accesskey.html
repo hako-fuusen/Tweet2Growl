@@ -40,6 +40,64 @@
         token secretを取得する。
       </p>
 
+      <h3>取得手順</h3>
+
+      <p>Twitterアカウントを取得済みであることを前提に記載します。</p>
+
+      <h4>Twitter developers にログイン</h4>
+
+      <p>
+        <a href="https://dev.twitter.com/">Twitter Developers</a> にアクセスし、右上の <em>Sign in</em>からログイン。<br>ユーザー名とパスワードはTwitterのものと同じ。<br>右上の<em>Sign
+          in</em>が自分のアイコンになっていればログイン成功。
+      </p>
+
+      <h4>My applications に移動</h4>
+
+      <p>
+        右上に表示されているアイコンをクリックして表示表示されるメニューから <em>My applications</em>を選択。切り替わったページに<em>Create New App</em>と書いてあるボタンがあるのでそれをクリック。
+      </p>
+
+      <h4>Create New App</h4>
+
+      <p>アプリケーションの情報を入力する画面になるので以下を参考に入力する。</p>
+
+      <ul>
+        <li>Name
+          <ul>
+            <li>アプリケーション名を入力する欄だが、基本的には何でもOK。既に存在する名前だとエラーになるので適当に長い名前をつける。</li>
+          </ul>
+        </li>
+        <li>Description
+          <ul>
+            <li>アプリケーションの説明文を入力する欄だが、こちらも基本的には何でもOK。10文字以上入力する必要があるのでこちらも適当に入力する。</li>
+          </ul>
+        </li>
+        <li>Website
+          <ul>
+            <li>アプリケーションの公式ページのURLを入力する欄。 自分のツイッターのプロフィールページのURLあたりを を入力すればOK。</li>
+          </ul>
+        </li>
+        <li>Callback URL
+          <ul>
+            <li>使用しないので空欄のままでOK</li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Organization とか Application settings とか書かれたページが出れば登録完了。</p>
+
+
+      <h4>アクセスキーの取得</h4>
+
+      <p>
+        Organization とか Application settings とか書かれたページの<em>API Keys</em>タブをクリック。<br>切り替わった先のページ<em>Create my
+          access token</em>ボタンをクリック。<br>少し待ってからRefreshのリンクをクリック。
+      </p>
+      <p>
+        Your access token以下に<em>Access token</em>や<em>Access token secret</em>
+        が表示されていればアクセスキー取得成功なのでそのままブラウザを開いておく。表示されてない場合は更に少し待ってリロードする。
+      </p>
+
       <h3>アクセスキーの設定</h3>
 
       <p>
