@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'application' // distZipに必要
 
 sourceCompatibility = 1.8
 version = '1.0'
@@ -7,6 +8,8 @@ version = '1.0'
 def defaultEncoding = 'UTF-8'
 [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
 
+// applicationプラグインが必要とするため暫定で設定
+mainClassName = 'dummy.ClassName'
 
 // 依存性の管理
 repositories {
@@ -15,11 +18,21 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile 'org.twitter4j:twitter4j-core:4.0.2'
 }
 
 // jar作成の際のプロパティ
 jar {
+	// 出力するJARファイル名を固定
+    archiveName = "${baseName}.${extension}"
     
+    // mavenのセントラルリポジトリから取得したjarファイルをクラスパスに自動的に追加する
+    // 依存性情報が事前に定義されていないと情報が取得できない。dependenciesより下で定義すること。
+    manifest {
+        attributes ( 
+        	'Class-Path': configurations.runtime.files.collect { it.name }.join(' ') ,
+        )
+    }
 }
 
 test {
