@@ -18,12 +18,21 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile 'org.twitter4j:twitter4j-core:4.0.2'
 }
 
 // jar作成の際のプロパティ
 jar {
 	// 出力するJARファイル名を固定
     archiveName = "${baseName}.${extension}"
+    
+    // mavenのセントラルリポジトリから取得したjarファイルをクラスパスに自動的に追加する
+    // 依存性情報が事前に定義されていないと情報が取得できない。dependenciesより下で定義すること。
+    manifest {
+        attributes ( 
+        	'Class-Path': configurations.runtime.files.collect { it.name }.join(' ') ,
+        )
+    }
 }
 
 test {
