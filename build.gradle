@@ -8,8 +8,8 @@ version = '1.0'
 def defaultEncoding = 'UTF-8'
 [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
 
-// applicationプラグインが必要とするため暫定で設定
-mainClassName = 'dummy.ClassName'
+// applicationプラグインが必要とする
+mainClassName = 't2g.Main'
 
 // 依存性の管理
 repositories {
@@ -31,6 +31,7 @@ jar {
     manifest {
         attributes ( 
         	'Class-Path': configurations.runtime.files.collect { it.name }.join(' ') ,
+        	'Main-Class': mainClassName
         )
     }
 }
