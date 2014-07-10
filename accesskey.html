@@ -31,6 +31,34 @@
 
       <p>これは、アクセスキー流出による（製作者に振りかかる）諸問題を回避するためです。気になる方は「Twitter アクセスキー 流出」といった単語でググってください。</p>
 
+      <h3>アクセスキーの設定</h3>
+
+      <p><em>twitter4j.properties</em>をテキストエディタで開く。<br>それぞれ以下のように編集して保存する。</p>
+
+      <ul>
+        <li>oauth.consumerKey={API key}
+          <ul>
+            <li>{API key}の部分を、[API key]テキストボックスの文字列に置き換える</li>
+          </ul>
+        </li>
+        <li>oauth.consumerSecret={API secret}
+          <ul>
+            <li>{API secret}の部分を、[API secret]テキストボックスの文字列に置き換える</li>
+          </ul>
+        </li>
+        <li>oauth.accessToken={Access token}
+          <ul>
+            <li>{Access token}の部分を、[Access token]テキストボックスの文字列に置き換える</li>
+          </ul>
+        </li>
+        <li>oauth.accessTokenSecret={Access token secret}
+          <ul>
+            <li>{Access token secret}の部分を[Access token secret]テキストボックスの文字列に置き換える</li>
+          </ul>
+        </li>
+      </ul>
+
+
       <p>
         <a href="./index.html">indexページに戻る</a>
       </p>
