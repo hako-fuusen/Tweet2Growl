@@ -19,7 +19,8 @@ dependencies {
 
 // jar作成の際のプロパティ
 jar {
-    
+	// 出力するJARファイル名を固定
+    archiveName = "${baseName}.${extension}"
 }
 
 test {
