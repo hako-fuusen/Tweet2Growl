@@ -43,4 +43,11 @@ public enum GNTP {
 
 		this.client.notify(notification);
 	}
+
+	/** フォロー、アンフォローの通知に使用する */
+	public void followAction(String text) {
+		GntpNotification notification = new GntpNotificationBuilder(t2gNotification, "Tweet2Growl").text(text).sticky(true).build();
+
+		this.client.notify(notification);
+	}
 }
