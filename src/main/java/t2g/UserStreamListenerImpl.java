@@ -71,14 +71,22 @@ public class UserStreamListenerImpl implements UserStreamListener {
 
 	@Override
 	public void onFollow(User source, User followedUser) {
-		// TODO 自動生成されたメソッド・スタブ
+		final String srcUserScreenName = source.getScreenName();
+		final String followedUserScreenName = followedUser.getScreenName();
 
+		String text = String.format("@%s was followed @%s", srcUserScreenName, followedUserScreenName);
+
+		GNTP.INSTANCE.followAction(text);
 	}
 
 	@Override
 	public void onUnfollow(User source, User unfollowedUser) {
-		// TODO 自動生成されたメソッド・スタブ
+		final String srcUserScreenName = source.getScreenName();
+		final String unfollowedUserScreenName = unfollowedUser.getScreenName();
 
+		String text = String.format("@%s was unfollowed @%s", srcUserScreenName, unfollowedUserScreenName);
+
+		GNTP.INSTANCE.followAction(text);
 	}
 
 	@Override
