@@ -10,12 +10,19 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
+
 public class Main {
 
 	public static void main(String[] args) throws AWTException, IOException {
 		setSystemTrayIcon();
 
 		GNTP.INSTANCE.initialize();
+
+		TwitterStream twitterStream = TwitterStreamFactory.getSingleton();
+		twitterStream.addListener(new UserStreamListenerImpl());
+		twitterStream.user();
 	}
 
 	private static void setSystemTrayIcon() throws AWTException, IOException {
