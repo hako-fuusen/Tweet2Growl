@@ -54,7 +54,7 @@ public class UserStreamListenerImpl implements UserStreamListener {
 
 	@Override
 	public void onFriendList(long[] friendIds) {
-		System.out.println("Streaming start.");
+		GNTP.INSTANCE.t2gNotification("Streaming start.");
 	}
 
 	@Override
