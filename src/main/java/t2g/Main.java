@@ -14,6 +14,8 @@ public class Main {
 
 	public static void main(String[] args) throws AWTException, IOException {
 		setSystemTrayIcon();
+
+		GNTP.INSTANCE.initialize();
 	}
 
 	private static void setSystemTrayIcon() throws AWTException, IOException {
