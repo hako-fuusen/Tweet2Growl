@@ -59,14 +59,26 @@ public class UserStreamListenerImpl implements UserStreamListener {
 
 	@Override
 	public void onFavorite(User source, User target, Status favoritedStatus) {
-		// TODO 自動生成されたメソッド・スタブ
+		final String srcUserScreenName = source.getScreenName();
+		final String dstUserScreenName = target.getScreenName();
+		final String statusText = favoritedStatus.getText();
+		final String srcUserProfileImageUrl = source.getProfileImageURL();
 
+		final String text = String.format("[Favorite] @%s :\n %s", dstUserScreenName, statusText);
+
+		GNTP.INSTANCE.favoriteAction(srcUserScreenName, srcUserProfileImageUrl, text);
 	}
 
 	@Override
 	public void onUnfavorite(User source, User target, Status unfavoritedStatus) {
-		// TODO 自動生成されたメソッド・スタブ
+		final String srcUserScreenName = source.getScreenName();
+		final String dstUserScreenName = target.getScreenName();
+		final String statusText = unfavoritedStatus.getText();
+		final String srcUserProfileImageUrl = source.getProfileImageURL();
 
+		final String text = String.format("[Unfavorite] @%s :\n %s", dstUserScreenName, statusText);
+
+		GNTP.INSTANCE.favoriteAction(srcUserScreenName, srcUserProfileImageUrl, text);
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package t2g;
 
 import java.awt.image.RenderedImage;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
@@ -22,6 +24,8 @@ public enum GNTP {
 	@SuppressWarnings("unused")
 	private GntpNotificationInfo status = null;
 
+	private GntpNotificationInfo favorite = null;
+
 	private GntpNotificationInfo t2gNotification = null;
 
 	public void initialize() throws IOException {
@@ -32,6 +36,7 @@ public enum GNTP {
 
 		// GntpNotificationInfo を1つ以上定義しないと、register()しても登録されないので暫定で設定
 		this.status = Gntp.notificationInfo(applicationInfo, "status").build();
+		this.favorite = Gntp.notificationInfo(applicationInfo, "favorite").build();
 		this.t2gNotification = Gntp.notificationInfo(applicationInfo, "t2gNotification").build();
 
 		this.client.register();
@@ -48,6 +53,20 @@ public enum GNTP {
 	public void followAction(String text) {
 		GntpNotification notification = new GntpNotificationBuilder(t2gNotification, "Tweet2Growl").text(text).sticky(true).build();
 
+		this.client.notify(notification);
+	}
+
+	/** favorite系統の通知に使用する */
+	public void favoriteAction(String screenName, String icon, String text) {
+		
+		GntpNotification notification = null;
+		try {
+			URI iconUrl = new URI(icon);
+			notification = new GntpNotificationBuilder(favorite, screenName).text(text).icon(iconUrl).build();
+		} catch (URISyntaxException e) {
+			notification = new GntpNotificationBuilder(favorite, screenName).text(text).build();
+		}
+		
 		this.client.notify(notification);
 	}
 }
