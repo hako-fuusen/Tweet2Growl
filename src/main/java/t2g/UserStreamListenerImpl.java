@@ -17,7 +17,10 @@ public class UserStreamListenerImpl implements UserStreamListener {
 		final String profileImageUrl = user.getProfileImageURL();
 		final String text = status.getText();
 
-		GNTP.INSTANCE.status(screenName, profileImageUrl, text);
+		// t.co 展開
+		final String expandText = TweetExpandService.INSTANCE.expandTweet(text, status);
+
+		GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
 	}
 
 	@Override
