@@ -21,7 +21,6 @@ public enum GNTP {
 
 	private GntpClient client = null;
 
-	@SuppressWarnings("unused")
 	private GntpNotificationInfo status = null;
 
 	private GntpNotificationInfo favorite = null;
@@ -34,7 +33,7 @@ public enum GNTP {
 		this.applicationInfo = Gntp.appInfo("Tweet2Growl").icon(image).build();
 		this.client = Gntp.client(this.applicationInfo).forHost("localhost").build();
 
-		// GntpNotificationInfo を1つ以上定義しないと、register()しても登録されないので暫定で設定
+		// GntpNotificationInfo を1つ以上定義しないと、register()しても登録されない
 		this.status = Gntp.notificationInfo(applicationInfo, "status").build();
 		this.favorite = Gntp.notificationInfo(applicationInfo, "favorite").build();
 		this.t2gNotification = Gntp.notificationInfo(applicationInfo, "t2gNotification").build();
@@ -67,6 +66,20 @@ public enum GNTP {
 			notification = new GntpNotificationBuilder(favorite, screenName).text(text).build();
 		}
 		
+		this.client.notify(notification);
+	}
+
+	/** status系統の通知に使用する */
+	public void status(String screenName, String icon, String text) {
+
+		GntpNotification notification = null;
+		try {
+			URI iconUrl = new URI(icon);
+			notification = new GntpNotificationBuilder(status, screenName).text(text).icon(iconUrl).build();
+		} catch (URISyntaxException e) {
+			notification = new GntpNotificationBuilder(status, screenName).text(text).build();
+		}
+
 		this.client.notify(notification);
 	}
 }

@@ -12,8 +12,12 @@ public class UserStreamListenerImpl implements UserStreamListener {
 
 	@Override
 	public void onStatus(Status status) {
-		// TODO 自動生成されたメソッド・スタブ
+		final User user = status.getUser();
+		final String screenName = user.getScreenName();
+		final String profileImageUrl = user.getProfileImageURL();
+		final String text = status.getText();
 
+		GNTP.INSTANCE.status(screenName, profileImageUrl, text);
 	}
 
 	@Override
