@@ -25,6 +25,34 @@
   <!-- MAIN CONTENT -->
   <div id="main_content_wrap" class="outer">
     <section id="main_content" class="inner">
+      <h3>設定方法</h3>
+
+      <p>
+        <em>ngword.txt</em> にNGワードに設定したい単語を一行ごとに記述して保存。その後<em>アプリを再起動</em>すれば設定完了です。
+      </p>
+      <p>内部実装の都合上、以下の文字についてはNGワードとしてそのまま使うことは出来ません。</p>
+
+      <pre>\ * + . ? { } ( ) [ ] ^ $ - |</pre>
+
+      <p>それぞれの文字をNGワードに含めたい場合は、以下のようにしてください。</p>
+
+      <pre>\\ \* \+ \. \? \{ \} \( \) \[ \] \^ \$ \- \|</pre>
+
+      <h3>より詳細な設定</h3>
+
+      <p>
+        本アプリではJavaの正規表現がそのまま使えます。<br />アプリ内で<em>.+ngword.txtに設定した文字列.+</em>といった文字列に展開されて正規表現による一致チェックが行われます。
+      </p>
+
+      <pre>
+日本語ハッシュタグをNGワードに指定する例
+#[^a-zA-Z_0-9 ]
+</pre>
+      <p>
+        正規表現の詳細については<a href="http://docs.oracle.com/javase/jp/8/api/java/util/regex/Pattern.html">Javaのドキュメント</a>をご参照ください。
+      </p>
+
+
 
       <p>
         <a href="./index.html">indexページに戻る</a>
