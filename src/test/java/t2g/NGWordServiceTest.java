@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+// src/test/resource/ngword.txtの記載内容によってテスト結果が変動するので注意
 public class NGWordServiceTest {
 
 	@BeforeClass
