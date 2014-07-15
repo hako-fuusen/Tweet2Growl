@@ -20,6 +20,11 @@ public class UserStreamListenerImpl implements UserStreamListener {
 		// t.co 展開
 		final String expandText = TweetExpandService.INSTANCE.expandTweet(text, status);
 
+		// NGワードチェック
+		if(NGWordService.INSTANCE.constainNGWord(expandText)) {
+			return;
+		}
+
 		GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
 	}
 
