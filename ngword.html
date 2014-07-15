@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset='utf-8' />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<meta name="description" content="Tweet2growl : Growl (for Windows) との連携を前提とした Twitter クライアント" />
+
+<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+<title>Tweet2Growl</title>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div id="header_wrap" class="outer">
+    <header class="inner">
+      <h1 id="project_title">Tweet2Growl</h1>
+
+      <h2 id="project_tagline">NGワードの設定</h2>
+    </header>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+      <h3>設定方法</h3>
+
+      <p>
+        <em>ngword.txt</em> にNGワードに設定したい単語を一行ごとに記述して保存。その後<em>アプリを再起動</em>すれば設定完了です。
+      </p>
+
+      <p>
+        <em>人はRT</em> と <em>shindan</em> をNGワードに指定したい場合は以下のように設定します。
+      </p>
+
+      <pre>
+人はRT
+shindan
+</pre>
+
+      <h4>一部の記号について</h4>
+
+      <p>以下の文字についてはNGワードとしてそのまま使うことは出来ません。</p>
+
+      <pre>\ * + . ? { } ( ) [ ] ^ $ - |</pre>
+
+      <p>それぞれの文字をNGワードに含めたい場合は、以下のようにしてください。</p>
+
+      <pre>\\ \* \+ \. \? \{ \} \( \) \[ \] \^ \$ \- \|</pre>
+
+      <p>
+        <em>(笑)</em> をNGワードに指定したい場合は以下のように設定します。
+      </p>
+
+      <pre>\(笑\)</pre>
+
+      <h3>より詳細な設定</h3>
+
+      <p>本アプリでは、下記のようにJavaの正規表現がそのまま使えます。</p>
+
+      <pre>#[^a-zA-Z_0-9 ]</pre>
+      <p>
+        設定ファイルに記載した内容は、アプリ内で<em>.+ngword.txtに設定した文字列.+</em>といった文字列に展開された後に、正規表現による一致チェックが行われます。
+      </p>
+
+      <p>
+        正規表現の詳細については<a href="http://docs.oracle.com/javase/jp/8/api/java/util/regex/Pattern.html">Javaのドキュメント</a>をご参照ください。
+      </p>
+
+
+
+      <p>
+        <a href="./index.html">indexページに戻る</a>
+      </p>
+    </section>
+  </div>
+
+  <!-- FOOTER  -->
+  <div id="footer_wrap" class="outer">
+    <footer class="inner">
+      <p>※ユーザー向けドキュメントを制作した後に実装を行う方式を取っています。 そのため、ドキュメントが存在していても機能が実装されていない場合があります。</p>
+      <hr />
+      <p class="copyright">
+        Tweet2Growl maintained by <a href="https://github.com/hako-fuusen">hako-fuusen</a>
+      </p>
+      <p>
+        Published with <a href="http://pages.github.com">GitHub Pages</a>
+      </p>
+    </footer>
+  </div>
+
+
+
+</body>
+</html>
