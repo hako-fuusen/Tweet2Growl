@@ -7,6 +7,7 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
@@ -15,10 +16,11 @@ import twitter4j.TwitterStreamFactory;
 
 public class Main {
 
-	public static void main(String[] args) throws AWTException, IOException {
+	public static void main(String[] args) throws AWTException, IOException, URISyntaxException {
 		setSystemTrayIcon();
 
 		GNTP.INSTANCE.initialize();
+		NGWordService.INSTANCE.initialize();
 
 		TwitterStream twitterStream = TwitterStreamFactory.getSingleton();
 		twitterStream.addListener(new UserStreamListenerImpl());
