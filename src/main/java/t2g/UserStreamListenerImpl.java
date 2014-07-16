@@ -12,6 +12,11 @@ public class UserStreamListenerImpl implements UserStreamListener {
 
 	@Override
 	public void onStatus(Status status) {
+		if (status.isRetweet()) {
+			onRetweet(status);
+			return;
+		}
+
 		final User user = status.getUser();
 		final String screenName = user.getScreenName();
 		final String profileImageUrl = user.getProfileImageURL();
@@ -26,6 +31,10 @@ public class UserStreamListenerImpl implements UserStreamListener {
 		}
 
 		GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
+	}
+	
+	private void onRetweet(Status status) {
+		
 	}
 
 	@Override
