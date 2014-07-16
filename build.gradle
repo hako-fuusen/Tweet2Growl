@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'application' // distZipに必要
+apply plugin: 'java-library-distribution'
 
 sourceCompatibility = 1.8
 version = '1.0'
@@ -8,8 +8,8 @@ version = '1.0'
 def defaultEncoding = 'UTF-8'
 [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
 
-// applicationプラグインが必要とする
-mainClassName = 't2g.Main'
+// java-library-distributionプラグインが必要とする
+ext.mainClassName = 't2g.Main'
 
 // 依存性の管理
 repositories {
@@ -32,7 +32,8 @@ jar {
     // 依存性情報が事前に定義されていないと情報が取得できない。dependenciesより下で定義すること。
     manifest {
         attributes ( 
-        	'Class-Path': configurations.runtime.files.collect { it.name }.join(' ') ,
+        	// java-library-distribution.distZipで出力する都合上ライブラリが別フォルダになるので、その補正を含む
+        	'Class-Path': configurations.runtime.files.collect { 'lib\\' + it.name }.join(' ') ,
         	'Main-Class': mainClassName
         )
     }
