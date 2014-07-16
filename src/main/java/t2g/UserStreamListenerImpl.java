@@ -45,7 +45,7 @@ public class UserStreamListenerImpl implements UserStreamListener {
 		final String rtText = retweetedStatus.getText();
 
 		// t.co 展開
-		final String expandText = TweetExpandService.INSTANCE.expandTweet(rtText, status);
+		final String expandText = TweetExpandService.INSTANCE.expandTweet(rtText, retweetedStatus);
 
 		// NGワードチェック
 		if(NGWordService.INSTANCE.constainNGWord(expandText)) {
