@@ -32,9 +32,30 @@ public class UserStreamListenerImpl implements UserStreamListener {
 
 		GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
 	}
-	
+
 	private void onRetweet(Status status) {
-		
+		// 発言をRTしたユーザーの情報
+		final User user = status.getUser();
+		final String screenName = user.getScreenName();
+		final String profileImageUrl = user.getProfileImageURL();
+
+		// 発言をRTされたユーザーの情報
+		final Status retweetedStatus = status.getRetweetedStatus();
+		final User rtUser = retweetedStatus.getUser();
+		final String rtScreenName = rtUser.getScreenName();
+		final String rtText = retweetedStatus.getText();
+
+		// t.co 展開
+		final String expandText = TweetExpandService.INSTANCE.expandTweet(rtText, status);
+
+		// NGワードチェック
+		if(NGWordService.INSTANCE.constainNGWord(expandText)) {
+			return;
+		}
+
+		final String text = new StringBuilder().append("[Retweet] @").append(rtScreenName).append(" : ").append(expandText).toString();
+
+		GNTP.INSTANCE.retweet(screenName, profileImageUrl, text);
 	}
 
 	@Override
