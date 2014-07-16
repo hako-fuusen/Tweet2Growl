@@ -32,7 +32,7 @@ jar {
     // 依存性情報が事前に定義されていないと情報が取得できない。dependenciesより下で定義すること。
     manifest {
         attributes ( 
-        	// java-library-distribution.distZipで出力する都合上ライブラリが別フォルダになるので、その補正を服務
+        	// java-library-distribution.distZipで出力する都合上ライブラリが別フォルダになるので、その補正を含む
         	'Class-Path': configurations.runtime.files.collect { 'lib\\' + it.name }.join(' ') ,
         	'Main-Class': mainClassName
         )
