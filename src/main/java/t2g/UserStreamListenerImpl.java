@@ -12,6 +12,11 @@ public class UserStreamListenerImpl implements UserStreamListener {
 
 	@Override
 	public void onStatus(Status status) {
+		if (status.isRetweet()) {
+			onRetweet(status, status.getRetweetedStatus());
+			return;
+		}
+
 		final User user = status.getUser();
 		final String screenName = user.getScreenName();
 		final String profileImageUrl = user.getProfileImageURL();
@@ -26,6 +31,31 @@ public class UserStreamListenerImpl implements UserStreamListener {
 		}
 
 		GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
+	}
+
+	private void onRetweet(Status status, Status retweetedStatus) {
+		// 発言をRTしたユーザーの情報
+		final User user = status.getUser();
+		final String screenName = user.getScreenName();
+		final String profileImageUrl = user.getProfileImageURL();
+
+		// 発言をRTされたユーザーの情報
+		final User rtUser = retweetedStatus.getUser();
+		final String rtScreenName = rtUser.getScreenName();
+		final String rtText = retweetedStatus.getText();
+
+		// t.co 展開
+		final String expandText = TweetExpandService.INSTANCE.expandTweet(rtText, retweetedStatus);
+
+		// NGワードチェック
+		if(NGWordService.INSTANCE.constainNGWord(expandText)) {
+			return;
+		}
+
+		// 最終的にGNTPで通知される文字列
+		final String text = String.format("[Retweet] @%s : %s", rtScreenName, expandText);
+
+		GNTP.INSTANCE.retweet(screenName, profileImageUrl, text);
 	}
 
 	@Override
