@@ -8,7 +8,7 @@ version = '1.0'
 def defaultEncoding = 'UTF-8'
 [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
 
-// applicationプラグインが必要とする
+// java-library-distributionプラグインが必要とする
 ext.mainClassName = 't2g.Main'
 
 // 依存性の管理
@@ -32,6 +32,7 @@ jar {
     // 依存性情報が事前に定義されていないと情報が取得できない。dependenciesより下で定義すること。
     manifest {
         attributes ( 
+        	// java-library-distribution.distZipで出力する都合上ライブラリが別フォルダになるので、その補正を服務
         	'Class-Path': configurations.runtime.files.collect { 'lib\\' + it.name }.join(' ') ,
         	'Main-Class': mainClassName
         )
