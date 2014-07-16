@@ -52,7 +52,8 @@ public class UserStreamListenerImpl implements UserStreamListener {
 			return;
 		}
 
-		final String text = new StringBuilder().append("[Retweet] @").append(rtScreenName).append(" : ").append(expandText).toString();
+		// 最終的にGNTPで通知される文字列
+		final String text = String.format("[Retweet] @%s : %s", rtScreenName, expandText);
 
 		GNTP.INSTANCE.retweet(screenName, profileImageUrl, text);
 	}
