@@ -10,6 +10,15 @@ import twitter4j.UserStreamListener;
 
 public class UserStreamListenerImpl implements UserStreamListener {
 
+	/** リプライ判別用, UserStreamListener系統はユーザー認証情報を持たないため、（コンストラクタ等で）外からユーザー情報等を設定する必要あり。 */
+	private final long ownerId;
+	private final String ownerScreenName;
+	
+	public UserStreamListenerImpl(long ownerId, String ownerScreenName) {
+		this.ownerId = ownerId;
+		this.ownerScreenName = ownerScreenName;
+	}
+	
 	@Override
 	public void onStatus(Status status) {
 		if (status.isRetweet()) {
