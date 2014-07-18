@@ -89,7 +89,7 @@ public enum GNTP {
 		this.client.notify(notification);
 	}
 
-	/** 文字列をURIに変換する。例外が出た==URIとして不適合な文字列だった)場合はnullを返す。 */
+	/** 文字列をURIに変換する。例外が出た(==URIとして不適合な文字列だった)場合はnullを返す。 */
 	private URI toURI(String iconURL) {
 		URI iconURI = null;
 		try {
