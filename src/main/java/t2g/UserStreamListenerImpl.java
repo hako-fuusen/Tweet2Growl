@@ -1,5 +1,7 @@
 package t2g;
 
+import java.util.Arrays;
+
 import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -39,7 +41,19 @@ public class UserStreamListenerImpl implements UserStreamListener {
 			return;
 		}
 
-		GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
+		if(isReply(status)) {
+			GNTP.INSTANCE.reply(screenName, profileImageUrl, expandText);
+		} else {
+			GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
+		}
+	}
+
+	private boolean isReply(Status status) {
+
+		final boolean replyUserId = Arrays.stream(status.getUserMentionEntities()).anyMatch(entity -> entity.getId() == ownerId);
+		final boolean replyMention = Arrays.stream(status.getUserMentionEntities()).anyMatch(entity -> entity.getScreenName().equals(ownerScreenName));
+		
+		return replyUserId || replyMention;
 	}
 
 	private void onRetweet(Status status, Status retweetedStatus) {
