@@ -77,7 +77,6 @@ public enum GNTP {
 	public void status(String screenName, String icon, String text) {
 		GntpNotification notification =  new GntpNotificationBuilder(status, screenName).text(text).icon(toURI(icon)).
 				header(TWEETACCOUNT, screenName).
-				header("X-REPLYACCOUNT", screenName).
 				build();
 
 		this.client.notify(notification);
