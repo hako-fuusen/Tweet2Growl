@@ -74,15 +74,17 @@ public enum GNTP {
 	/** status系統の通知に使用する */
 	public void status(String screenName, String icon, String text) {
 		GntpNotification notification =  new GntpNotificationBuilder(status, screenName).text(text).icon(toURI(icon)).
-				header(TWEETACCOUNT, screenName).build();
+				header(TWEETACCOUNT, screenName).
+				build();
 
 		this.client.notify(notification);
 	}
 
 	/** reply系統の通知に使用する */
-	public void reply(String screenName, String icon, String text) {
+	public void reply(String screenName, String icon, String text, String dstScreenName) {
 		GntpNotification notification = new GntpNotificationBuilder(reply, screenName).text(text).icon(toURI(icon)).
-				header(TWEETACCOUNT, screenName).build();
+				header(TWEETACCOUNT, screenName).
+				header("X-SOURCEACCOUNT", dstScreenName).build();
 
 		this.client.notify(notification);
 	}

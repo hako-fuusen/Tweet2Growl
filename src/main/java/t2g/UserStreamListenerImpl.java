@@ -42,7 +42,7 @@ public class UserStreamListenerImpl implements UserStreamListener {
 		}
 
 		if(isReply(status)) {
-			GNTP.INSTANCE.reply(screenName, profileImageUrl, expandText);
+			GNTP.INSTANCE.reply(screenName, profileImageUrl, expandText, ownerScreenName);
 		} else {
 			GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
 		}
