@@ -11,19 +11,20 @@ import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
+import twitter4j.TwitterException;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
 public class Main {
 
-	public static void main(String[] args) throws AWTException, IOException, URISyntaxException {
+	public static void main(String[] args) throws AWTException, IOException, URISyntaxException, IllegalStateException, TwitterException {
 		setSystemTrayIcon();
 
 		GNTP.INSTANCE.initialize();
 		NGWordService.INSTANCE.initialize();
 
 		TwitterStream twitterStream = TwitterStreamFactory.getSingleton();
-		twitterStream.addListener(new UserStreamListenerImpl());
+		twitterStream.addListener(new UserStreamListenerImpl(twitterStream.getId(), twitterStream.getScreenName()));
 		twitterStream.user();
 	}
 

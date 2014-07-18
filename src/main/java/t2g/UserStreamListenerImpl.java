@@ -1,5 +1,7 @@
 package t2g;
 
+import java.util.Arrays;
+
 import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -10,6 +12,15 @@ import twitter4j.UserStreamListener;
 
 public class UserStreamListenerImpl implements UserStreamListener {
 
+	/** リプライ判別用, UserStreamListener系統はユーザー認証情報を持たないため、（コンストラクタ等で）外からユーザー情報等を設定する必要あり。 */
+	private final long ownerId;
+	private final String ownerScreenName;
+	
+	public UserStreamListenerImpl(long ownerId, String ownerScreenName) {
+		this.ownerId = ownerId;
+		this.ownerScreenName = ownerScreenName;
+	}
+	
 	@Override
 	public void onStatus(Status status) {
 		if (status.isRetweet()) {
@@ -30,7 +41,19 @@ public class UserStreamListenerImpl implements UserStreamListener {
 			return;
 		}
 
-		GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
+		if(isReply(status)) {
+			GNTP.INSTANCE.reply(screenName, profileImageUrl, expandText);
+		} else {
+			GNTP.INSTANCE.status(screenName, profileImageUrl, expandText);
+		}
+	}
+
+	private boolean isReply(Status status) {
+
+		final boolean replyUserId = Arrays.stream(status.getUserMentionEntities()).anyMatch(entity -> entity.getId() == ownerId);
+		final boolean replyMention = Arrays.stream(status.getUserMentionEntities()).anyMatch(entity -> entity.getScreenName().equals(ownerScreenName));
+		
+		return replyUserId || replyMention;
 	}
 
 	private void onRetweet(Status status, Status retweetedStatus) {

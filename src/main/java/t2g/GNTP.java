@@ -23,6 +23,8 @@ public enum GNTP {
 
 	private GntpNotificationInfo status = null;
 
+	private GntpNotificationInfo reply = null;
+
 	private GntpNotificationInfo retweet = null;
 
 	private GntpNotificationInfo favorite = null;
@@ -37,6 +39,7 @@ public enum GNTP {
 
 		// GntpNotificationInfo を1つ以上定義しないと、register()しても登録されない
 		this.status = Gntp.notificationInfo(applicationInfo, "status").build();
+		this.reply = Gntp.notificationInfo(applicationInfo, "reply").build();
 		this.retweet = Gntp.notificationInfo(applicationInfo, "retweet").build();
 		this.favorite = Gntp.notificationInfo(applicationInfo, "favorite").build();
 		this.t2gNotification = Gntp.notificationInfo(applicationInfo, "t2gNotification").build();
@@ -60,43 +63,39 @@ public enum GNTP {
 
 	/** favorite系統の通知に使用する */
 	public void favoriteAction(String screenName, String icon, String text) {
-		
-		GntpNotification notification = null;
-		try {
-			URI iconUrl = new URI(icon);
-			notification = new GntpNotificationBuilder(favorite, screenName).text(text).icon(iconUrl).build();
-		} catch (URISyntaxException e) {
-			notification = new GntpNotificationBuilder(favorite, screenName).text(text).build();
-		}
-		
+		GntpNotification notification = new GntpNotificationBuilder(favorite, screenName).text(text).icon(toURI(icon)).build();
+
 		this.client.notify(notification);
 	}
 
 	/** status系統の通知に使用する */
 	public void status(String screenName, String icon, String text) {
+		GntpNotification notification =  new GntpNotificationBuilder(status, screenName).text(text).icon(toURI(icon)).build();
 
-		GntpNotification notification = null;
-		try {
-			URI iconUrl = new URI(icon);
-			notification = new GntpNotificationBuilder(status, screenName).text(text).icon(iconUrl).build();
-		} catch (URISyntaxException e) {
-			notification = new GntpNotificationBuilder(status, screenName).text(text).build();
-		}
+		this.client.notify(notification);
+	}
+
+	/** reply系統の通知に使用する */
+	public void reply(String screenName, String icon, String text) {
+		GntpNotification notification = new GntpNotificationBuilder(reply, screenName).text(text).icon(toURI(icon)).build();
 
 		this.client.notify(notification);
 	}
 
 	/** retweet系統の通知に使用する */
 	public void retweet(String screenName, String icon, String text) {
-
-		GntpNotification notification = null;
-		try {
-			URI iconUrl = new URI(icon);
-			notification = new GntpNotificationBuilder(retweet, screenName).text(text).icon(iconUrl).build();
-		} catch (URISyntaxException e) {
-			notification = new GntpNotificationBuilder(retweet, screenName).text(text).build();
-		}
+		GntpNotification notification = new GntpNotificationBuilder(retweet, screenName).text(text).icon(toURI(icon)).build();
 
 		this.client.notify(notification);
+	}
+
+	/** 文字列をURIに変換する。例外が出た(==URIとして不適合な文字列だった)場合はnullを返す。 */
+	private URI toURI(String iconURL) {
+		URI iconURI = null;
+		try {
+			iconURI = new URI(iconURL);
+		} catch (URISyntaxException e) {
+		}
+		return iconURI;
 	}
 }
