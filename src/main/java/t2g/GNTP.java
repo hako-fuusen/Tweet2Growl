@@ -31,6 +31,8 @@ public enum GNTP {
 
 	private GntpNotificationInfo t2gNotification = null;
 
+	private static final String TWEETACCOUNT = "X-TWEETACCOUNT";
+
 	public void initialize() throws IOException {
 		RenderedImage image = ImageIO.read(Thread.currentThread().getContextClassLoader().getResourceAsStream("icon-growl.png"));
 
@@ -63,28 +65,32 @@ public enum GNTP {
 
 	/** favorite系統の通知に使用する */
 	public void favoriteAction(String screenName, String icon, String text) {
-		GntpNotification notification = new GntpNotificationBuilder(favorite, screenName).text(text).icon(toURI(icon)).build();
+		GntpNotification notification = new GntpNotificationBuilder(favorite, screenName).text(text).icon(toURI(icon)).
+				header(TWEETACCOUNT, screenName).build();
 
 		this.client.notify(notification);
 	}
 
 	/** status系統の通知に使用する */
 	public void status(String screenName, String icon, String text) {
-		GntpNotification notification =  new GntpNotificationBuilder(status, screenName).text(text).icon(toURI(icon)).build();
+		GntpNotification notification =  new GntpNotificationBuilder(status, screenName).text(text).icon(toURI(icon)).
+				header(TWEETACCOUNT, screenName).build();
 
 		this.client.notify(notification);
 	}
 
 	/** reply系統の通知に使用する */
 	public void reply(String screenName, String icon, String text) {
-		GntpNotification notification = new GntpNotificationBuilder(reply, screenName).text(text).icon(toURI(icon)).build();
+		GntpNotification notification = new GntpNotificationBuilder(reply, screenName).text(text).icon(toURI(icon)).
+				header(TWEETACCOUNT, screenName).build();
 
 		this.client.notify(notification);
 	}
 
 	/** retweet系統の通知に使用する */
 	public void retweet(String screenName, String icon, String text) {
-		GntpNotification notification = new GntpNotificationBuilder(retweet, screenName).text(text).icon(toURI(icon)).build();
+		GntpNotification notification = new GntpNotificationBuilder(retweet, screenName).text(text).icon(toURI(icon)).
+				header(TWEETACCOUNT, screenName).build();
 
 		this.client.notify(notification);
 	}
