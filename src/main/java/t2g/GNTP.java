@@ -33,10 +33,12 @@ public enum GNTP {
 
 	private static final String TWEETACCOUNT = "X-TWEETACCOUNT";
 
+	private static final String APPLICATION_NAME = "Tweet2Growl";
+
 	public void initialize() throws IOException {
 		RenderedImage image = ImageIO.read(Thread.currentThread().getContextClassLoader().getResourceAsStream("icon-growl.png"));
 
-		this.applicationInfo = Gntp.appInfo("Tweet2Growl").icon(image).build();
+		this.applicationInfo = Gntp.appInfo(APPLICATION_NAME).icon(image).build();
 		this.client = Gntp.client(this.applicationInfo).forHost("localhost").build();
 
 		// GntpNotificationInfo を1つ以上定義しないと、register()しても登録されない
@@ -51,14 +53,14 @@ public enum GNTP {
 
 	/** ストリーム受信開始等、アプリケーションからの通知に使用する */
 	public void t2gNotification(String text) {
-		GntpNotification notification = new GntpNotificationBuilder(t2gNotification, "Tweet2Growl").text(text).build();
+		GntpNotification notification = new GntpNotificationBuilder(t2gNotification, APPLICATION_NAME).text(text).build();
 
 		this.client.notify(notification);
 	}
 
 	/** フォロー、アンフォローの通知に使用する */
 	public void followAction(String text) {
-		GntpNotification notification = new GntpNotificationBuilder(t2gNotification, "Tweet2Growl").text(text).build();
+		GntpNotification notification = new GntpNotificationBuilder(t2gNotification, APPLICATION_NAME).text(text).build();
 
 		this.client.notify(notification);
 	}
@@ -75,6 +77,7 @@ public enum GNTP {
 	public void status(String screenName, String icon, String text) {
 		GntpNotification notification =  new GntpNotificationBuilder(status, screenName).text(text).icon(toURI(icon)).
 				header(TWEETACCOUNT, screenName).
+				header("X-REPLYACCOUNT", screenName).
 				build();
 
 		this.client.notify(notification);
